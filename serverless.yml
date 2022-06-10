@@ -5,10 +5,17 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamo:*
+        # Add your Amazon Resource Name (ARN) here from your DynamoDB table
+      Resource:
+        - arn:aws:dynamodb:*:*:table/TodoTable
 
 functions:
-  hello:
-    handler: src/hello.handler
+  addTodo:
+    handler: src/addTodo.handler
     events:
       - httpApi:
           path: /
